@@ -19,7 +19,9 @@
     @yield('contend')
 
     <footer>
-        <p class="copy">&copy; Padilla C., Juan Bautista - 2020 - © Todos los derechos reservados</p>
+        <p class="copy">&copy; Padilla C., Juan Bautista</p>
+        <p>2020 - © Todos los derechos reservados</p>
+
     </footer>
 
 </body>
