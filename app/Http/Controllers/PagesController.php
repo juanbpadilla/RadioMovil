@@ -10,4 +10,15 @@ class PagesController extends Controller
     {
         return view('home');
     }
+    
+    // public function contacto()
+    // {
+    //     return view('contactos');
+    // }
+
+
+    public function saludo($nombre = "Invitado")
+    {
+        return view('saludos', compact('nombre'));
+    }
 }

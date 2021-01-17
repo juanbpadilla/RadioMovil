@@ -1,0 +1,14 @@
+@extends('layout')
+
+@section('contenido')
+    <h1>Login</h1>
+
+    <form method="post" action="/login">
+        {!! csrf_field() !!}
+        
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" value="Enviar">
+    </form>
+    <br>
+@stop
