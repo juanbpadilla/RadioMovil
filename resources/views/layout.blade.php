@@ -33,9 +33,14 @@
                         <a class="nav-link {{ activeMenu('mensajes/create') }}" href="{{ route('mensajes.create') }}">Contactos</a>
                     </li>
                     @if (auth()->check())
-                        <li class="nav-item">
-                            <a class="nav-link {{ activeMenu('mensajes') }}" href="{{ route('mensajes.index') }}">Mensajes</a>
-                        </li>
+                            <li class="nav-item {{ activeMenu('mensajes') }}">
+                                <a class="nav-link" href="{{ route('mensajes.index') }}">Mensajes</a>
+                            </li>
+                        @if (auth()->user()->hasRoles(['admin']) )
+                            <li class="nav-item {{ activeMenu('usuarios*') }}">
+                                <a class="nav-link" href="{{ route('usuarios.index') }}">Usuarios</a>
+                            </li>
+                        @endif
                     @endif
                     
                 </ul>
@@ -47,24 +52,24 @@
                 <ul class="navbar-nav ml-auto mr-5 mt-2 mt-lg-0">
 
                     @if (auth()->check())
-                        <li class="nav-item">
-                            <a class="nav-link" 
-                                href="/logout">Cerrar cesion de {{ auth()->user()->nombre }}
-                            </a>
-                        </li> 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ auth()->user()->nombre }}</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownId">
+                                <a class="dropdown-item" href="/logout">Cerrar cesion</a>
+                                <a class="dropdown-item" href="/usuarios/{{ auth()->id() }}/edit">Mi cuenta</a>
+                            </div>
+                        </li>
+                        
                     @else
+                        <li class="nav-item">
+                            <a class="nav-link {{ activeMenu('pasajeros*') }}" href="{{ route('pasajeros.create') }}">Regístrate</a>
+                        </li> 
                         <li class="nav-item">
                             <a class="nav-link {{ activeMenu('login') }}" href="/login">Login</a>
                         </li> 
                     @endif
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownId">
-                            <a class="dropdown-item" href="#">Action 1</a>
-                            <a class="dropdown-item" href="#">Action 2</a>
-                        </div>
-                    </li>
+                    
                 </ul>
             </div>
         </nav>

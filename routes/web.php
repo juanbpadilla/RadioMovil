@@ -2,13 +2,13 @@
 
 // Route::get('test', function(){
 //     $user =new App\User;
-//     $user->nombre = 'Dimar';
-//     $user->apellido = 'Coca';
+//     $user->nombre = 'Fredi';
+//     $user->apellido = 'Flores';
 //     $user->sexo = 'Hombre';
-//     $user->direccion = 'Barrio Guadalupe donde mueren los valientes';
-//     $user->telefono = '110';
-//     $user->email = 'dimar@email.com';
-//     $user->user_name = 'dimar1';
+//     $user->direccion = 'Barrio Municipal';
+//     $user->telefono = '2222';
+//     $user->email = 'fredi@email.com';
+//     $user->user_name = 'fredi1';
 //     $user->password = bcrypt('123123');
 //     $user->save();
 
@@ -24,8 +24,12 @@ Route::get('saludos/{nombre?}', ['as' => 'saludos', 'uses' => 'PagesController@s
 
 Route::resource('mensajes', 'MessagesController');
 
+Route::resource('usuarios', 'UsersController');
 
-Route::get('login', 'Auth\LoginController@ShowLoginForm');
+Route::resource('pasajeros', 'PassangerController');
+
+Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@ShowLoginForm']);
+
 Route::post('login', 'Auth\LoginController@Login');
 
 Route::get('logout', 'Auth\LoginController@logout');

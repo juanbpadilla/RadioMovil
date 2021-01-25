@@ -17,13 +17,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nombre',
-        'apellidos',
-        'genero', 
+        'apellido',
+        'sexo', 
         'direccion', 
         'telefono', 
         'email', 
-        'estado', 
-        'user_name', 
+        'user_name',
         'password',
     ];
 
@@ -44,4 +43,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRoles(array $roles)
+    {        
+        return $this->roles->pluck('name')->intersect($roles)->count();
+        // foreach ($roles as $role)
+        // {
+        //     foreach ($this->roles as $userRole)
+        //     {
+        //         if ($userRole->name === $role)
+        //         {
+        //             return true;
+        //         }
+        //     }
+        // }        
+    }  
+
+    public function isAdmin()
+    {
+        return $this->hasRoles(['admin']);
+    }
+    
 }

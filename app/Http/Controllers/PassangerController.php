@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
+use App\Role;
+use App\User;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateMessageRequest;
 
-class MessagesController extends Controller
+class PassangerController extends Controller
 {
-    function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('roles:admin,mod', ['except' => ['create', 'store', 'show', 'index']]);
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+    function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('roles:admin', ['except' => ['edit', 'update','show', 'index']]);
+    }
+    
     public function index()
     {
-        $messages = Message::all();
-
-        return view('messages.index', compact('messages'));
+        //
     }
 
     /**
@@ -32,20 +33,24 @@ class MessagesController extends Controller
      */
     public function create()
     {
-        return view('messages.create');
+        $roles = Role::pluck('display_name', 'id');
+
+        return view('passangers.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\CreateUserRequest;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateMessageRequest $request)
+    public function store(CreateUserRequest $request)
     {
-        Message::create($request->all());
-        
-        return redirect()->route('mensajes.create')->with('info', 'Hemos recibido tu mensaje');
+        $user = User::create( $request->all());
+
+        $user->roles()->attach($request->roles);
+
+        return Redirect()->route('usuarios.index');
     }
 
     /**
@@ -56,9 +61,7 @@ class MessagesController extends Controller
      */
     public function show($id)
     {
-        $message = Message::findOrFail($id);
-        
-        return view('messages.show', compact('message'));
+        //
     }
 
     /**
@@ -69,9 +72,7 @@ class MessagesController extends Controller
      */
     public function edit($id)
     {
-        $message = Message::findOrFail($id);
-
-        return view('messages.edit', compact('message'));
+        //
     }
 
     /**
@@ -83,9 +84,7 @@ class MessagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Message::findOrFail($id)->update($request->all());
-
-        return redirect()->route('mensajes.index');
+        //
     }
 
     /**
@@ -96,8 +95,6 @@ class MessagesController extends Controller
      */
     public function destroy($id)
     {
-        Message::findOrFail($id)->delete();
-        
-        return back();
+        //
     }
 }
