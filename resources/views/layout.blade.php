@@ -15,7 +15,8 @@
         } ?>
 
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand" href="#">Navbar</a>
+            
+            <a class="navbar-brand" href="{{ route('home') }}"><img src="/img/logo.png" alt="" style="width:60px;height:60px;"> Geotaxi</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -79,7 +80,7 @@
         @yield('contenido')
 
         <footer>
-            <p>2020 - © Todos los derechos reservados</p>
+            <p>2021 - © Todos los derechos reservados</p>
 
         </footer>
     </div>
