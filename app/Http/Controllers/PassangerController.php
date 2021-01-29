@@ -17,8 +17,8 @@ class PassangerController extends Controller
 
     function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('roles:admin', ['except' => ['edit', 'update','show', 'index']]);
+        $this->middleware('auth', ['except' => ['create', 'store']]);
+        $this->middleware('roles:admin', ['except' => ['create','store', 'edit', 'update','show', 'index']]);
     }
     
     public function index()
