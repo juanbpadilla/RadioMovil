@@ -118,6 +118,7 @@ class UsersController extends Controller
 
         // $this->authorize($user);
 
+        $user->roles()->detach();
         $user->delete();
 
         return redirect()->route('usuarios.index');
