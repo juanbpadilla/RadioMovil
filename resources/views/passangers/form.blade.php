@@ -53,12 +53,12 @@
         {!! $errors->first('password_confirmation', '<span class=error>:message</span>') !!}
     </label></p>    
 @endunless
-<div>    
+{{-- <div>    
     <div class="form-check-inline">
         <label class="form-check-label">
             <input type="checkbox" class="form-check-input" value="4" name="roles" checked>Terminos y condiciones
         </label>
     </div>
 </div>
-{!! $errors->first('roles', '<span class=error>:message</span>') !!}
+{!! $errors->first('roles', '<span class=error>:message</span>') !!} --}}
 <hr>

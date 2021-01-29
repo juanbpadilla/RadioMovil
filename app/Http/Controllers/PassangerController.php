@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use App\User;
-use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\CreatePassangerRequest;
 use Illuminate\Http\Request;
 
 class PassangerController extends Controller
@@ -41,14 +41,14 @@ class PassangerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CreateUserRequest;  $request
+     * @param  \App\Http\Requests\CreatePassangerRequest;  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreatePassangerRequest $request)
     {
         $user = User::create( $request->all());
 
-        $user->roles()->attach($request->roles);
+        $user->roles()->attach(4);
 
         return Redirect()->route('usuarios.index');
     }
