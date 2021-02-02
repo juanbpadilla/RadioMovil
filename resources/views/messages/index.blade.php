@@ -8,6 +8,7 @@
             <th>Nombre</th>
             <th>Email</th>
             <th>Mensaje</th>
+            <th>Notas</th>
             @if (auth()->user()->hasRoles(['admin', 'mod']) )
                 <th>Acciones</th>
             @endif
@@ -16,11 +17,23 @@
             @foreach($messages as $message)
                 <tr>
                     <td>{{ $message->id }}</td>
-                    <td><a href="{{ route('mensajes.show', $message->id) }}">
-                        {{ $message->nombre }}
-                    </a></td>
-                    <td>{{ $message->email }}</td>
-                    <td>{{ $message->mensaje }}</td>
+                    @if ($message->user_id)
+                        <td>
+                            <a href="{{ route('usuarios.show', $message->user_id) }}">
+                                {{ $message->user->nombre }}
+                            </a>
+                        </td>
+                        <td>{{ $message->user->email }}</td>
+                    @else
+                        <td>{{ $message->nombre }}</td>
+                        <td>{{ $message->email }}</td>
+                    @endif
+                    <td>
+                        <a href="{{ route('mensajes.show', $message->id) }}">{{ $message->mensaje }}</a>
+                    </td>
+                    <td>
+                        {{ $message->note ? $message->note->body : '' }}
+                    </td>
                     @if (auth()->user()->hasRoles(['admin', 'mod']) )
                         <td>
                             <a class="btn btn-info btn-sm" href="{{ route('mensajes.edit', $message->id) }}">Editar</a>
@@ -35,6 +48,7 @@
                     @endif
                 </tr>
             @endforeach
+            {!! $messages->appends(request()->query())->links('pagination::bootstrap-4') !!}
         </tbody>
     </table>
 @stop

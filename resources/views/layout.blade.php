@@ -28,9 +28,6 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link {{ activeMenu('saludos*') }}" href="{{ route('saludos', 'Dimar') }}">Saludos</a>
-                    </li>            
-                    <li class="nav-item">
                         <a class="nav-link {{ activeMenu('mensajes/create') }}" href="{{ route('mensajes.create') }}">Contactos</a>
                     </li>
                     @if (auth()->check())

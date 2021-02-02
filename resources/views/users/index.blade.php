@@ -15,6 +15,7 @@
             <th>Teléfono</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Notas</th>
             @if (auth()->user()->hasRoles(['admin']) )
                 <th>Acciones</th>
             @endif
@@ -33,6 +34,7 @@
                         {{ $user->roles->pluck('display_name')->implode(', ') }}
                         
                     </td>
+                    <td>{{ $user->note ? $user->note->body : '' }}</td>
                     @if (auth()->user()->hasRoles(['admin']) )
                     <td>
                         <a class="btn btn-info btn-sm" href="{{ route('usuarios.edit', $user->id) }}">Editar</a>

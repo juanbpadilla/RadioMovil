@@ -9,10 +9,10 @@
         </div>
     @else
     <form method="POST" action="{{ route('mensajes.store') }}">
-        
-        @include('messages.form', ['message' => new App\Message])
-
-        <button class="btn btn-info" type="submit">Enviar</button>
+        @include('messages.form', [
+            'message' => new App\Message,
+            'showFields' => auth()->guest()
+            ])
     </form>
     @endif
     <hr>
