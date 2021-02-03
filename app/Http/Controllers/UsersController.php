@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Role;
-use App\Repositories\Users;
+use App\Repositories\UsersInterface;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Support\Facades\Cache;
 
 class UsersController extends Controller
 {
     protected $users;
 
-    function __construct(Users $users)
+    function __construct(UsersInterface $users)
     {
         $this->users = $users;
         $this->middleware('auth', ['except' => ['show, create']]);

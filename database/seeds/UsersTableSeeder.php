@@ -18,31 +18,12 @@ class UsersTableSeeder extends Seeder
         Role::truncate();
         DB::table('role_user')->truncate();
 
-        $user = User::create([
-            'nombre' => 'Dimar',
-            'apellido' => 'Coca',
-            'sexo' => 'Hombre',
-            'direccion' => 'Barrio Guadalupe',
-            'telefono' => '777777',
-            'email' => 'dimar@email.com',
-            'user_name' => 'simar1',
-            'password' => '123123',
-        ]);
-
-        $role = Role::create([
-            'name' => 'admin',
-            'display_name' => 'Administrador',
-            'description' => 'Administrador del sitio web'
-        ]);
-
-        $user->roles()->save($role);
-
         $role2 = Role::create([
             'name' => 'cliente',
             'display_name' => 'Cliente',
             'description' => 'Cliente del sitio web'
         ]);
-
+        
         for($i=0 ; $i < 50; $i++)
         {
             if($i % 2 ==0)
@@ -77,8 +58,25 @@ class UsersTableSeeder extends Seeder
 
                 $user2->roles()->save($role2);
             }
-    
-            
         }
+        
+        $user = User::create([
+            'nombre' => 'Dimar',
+            'apellido' => 'Coca',
+            'sexo' => 'Hombre',
+            'direccion' => 'Barrio Guadalupe',
+            'telefono' => '777777',
+            'email' => 'dimar@email.com',
+            'user_name' => 'simar1',
+            'password' => '123123',
+        ]);
+
+        $role = Role::create([
+            'name' => 'admin',
+            'display_name' => 'Administrador',
+            'description' => 'Administrador del sitio web'
+        ]);
+
+        $user->roles()->save($role);
     }
 }

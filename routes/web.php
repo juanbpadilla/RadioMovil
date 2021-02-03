@@ -1,7 +1,7 @@
 <?php
 
 DB::listen(function($query){
-    echo "<pre>{$query->sql}</pre>";
+    // echo "<pre>{$query->sql}</pre>";
 });
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
