@@ -24,7 +24,10 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
-                    <td>{{ $user->nombre }}</td>
+                    <td>
+                        <a href="{{ route('usuarios.show', $user->id) }}">
+                        {{ $user->nombre }}</a>
+                    </td>
                     <td>{{ $user->apellido }}</td>
                     <td>{{ $user->sexo }}</td>
                     <td>{{ $user->direccion }}</td>
@@ -48,6 +51,7 @@
                     @endif
                 </tr>
             @endforeach
+            {!! $users->appends(request()->query())->links('pagination::bootstrap-4') !!}
         </tbody>
     </table>
 @stop

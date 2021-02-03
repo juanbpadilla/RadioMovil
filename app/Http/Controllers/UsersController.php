@@ -4,15 +4,18 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Repositories\Users;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class UsersController extends Controller
 {
+    protected $users;
 
-    function __construct()
+    function __construct(Users $users)
     {
+        $this->users = $users;
         $this->middleware('auth', ['except' => ['show, create']]);
         $this->middleware('roles:admin', ['except' => ['edit', 'update','show', 'index', 'destroy', 'create']]);
     }
@@ -23,7 +26,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with(['roles', 'note'])->get();
+       $users = $this->users->getPaginated();
 
         return view('users.index', compact('users'));
     }
@@ -48,10 +51,7 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        
-        $user = User::create( $request->all());
-
-        $user->roles()->attach($request->roles);
+        $this->users->store($request);
 
         return Redirect()->route('usuarios.index');
     }
@@ -64,7 +64,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->users->findById($id);
 
         return view('users.show', compact('user'));
     }
@@ -77,11 +77,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->users->findById($id);
 
         $this->authorize($user);
 
-        $roles = Role::pluck('display_name', 'id');
+        $roles = $this->users->pluckRoles($id);
         
         return view('users.edit', compact('user', 'roles'));
     }
@@ -95,13 +95,11 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->users->findById($id);
 
         $this->authorize($user);
 
-        $user->update($request->only('nombre','apellido','sexo','direccion','telefono','email', 'user_name' ));
-
-        $user->roles()->sync($request->roles);
+        $user = $this->users->update($request, $user);
         
         return back()->with('info', 'Usuario actualizado');
     }
@@ -114,12 +112,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->users->findById($id);
 
         // $this->authorize($user);
 
-        $user->roles()->detach();
-        $user->delete();
+        $user = $this->users->destroy($user);
 
         return redirect()->route('usuarios.index');
     }
