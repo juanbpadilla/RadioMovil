@@ -32,6 +32,7 @@ class CreatePassangerRequest extends FormRequest
             'email' => 'email|required|unique:users,email',
             'user_name' => 'required|unique:users,user_name', 
             'password' => 'required|confirmed', // 'campo' 'campo_confirmation'
+            'g-recaptcha-response' => 'recaptcha',
         ];
     }
 }

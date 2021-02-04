@@ -5,7 +5,7 @@
 
     <form method="POST" action="{{ route('pasajeros.store') }}">
         
-        @include('passangers.form', ['user' => new App\User])
+        @include('/users.form', ['user' => new App\User])
 
         <input class="btn btn-primary" type="submit" value="Guardar">
     </form>

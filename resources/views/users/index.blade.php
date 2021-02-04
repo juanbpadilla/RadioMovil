@@ -24,20 +24,14 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>
-                    <td>
-                        <a href="{{ route('usuarios.show', $user->id) }}">
-                        {{ $user->nombre }}</a>
-                    </td>
+                    <td>{!! $user->present()->link() !!}</td>
                     <td>{{ $user->apellido }}</td>
                     <td>{{ $user->sexo }}</td>
                     <td>{{ $user->direccion }}</td>
                     <td>{{ $user->telefono }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                        {{ $user->roles->pluck('display_name')->implode(', ') }}
-                        
-                    </td>
-                    <td>{{ $user->note ? $user->note->body : '' }}</td>
+                    <td>{{ $user->present()->roles() }}</td>
+                    <td>{{ $user->present()->notes() }}</td>
                     @if (auth()->user()->hasRoles(['admin']) )
                     <td>
                         <a class="btn btn-info btn-sm" href="{{ route('usuarios.edit', $user->id) }}">Editar</a>

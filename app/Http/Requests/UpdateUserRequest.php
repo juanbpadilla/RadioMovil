@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             'direccion' => 'required|min:5',
             'telefono' => 'required|numeric',
             'email' => 'email|required|unique:users,email,'.$this->route('usuario'),
+            'g-recaptcha-response' => 'recaptcha',
         ];
     }
 }

@@ -1,19 +1,7 @@
 @extends('layout')
 
 @section('contenido')
-    <h1>Mensaje de {{ $message->nombre }}</h1>
-    <table class="table">
-        <tr>
-            <th>Id</th>
-            <td>{{ $message->id }}</td>
-        </tr>
-        <tr>
-            <th>Nombre</th>
-            <td>{{ $message->nombre }}</td>
-        </tr>
-        <tr>
-            <th>Mensaje</th>
-            <td>{{ $message->mensaje }}</td>
-        </tr>
-    </table>
+    <h1>Mensaje</h1>
+    <p>Enviado por {{ $message->present()->userName() }} - {{ $message->present()->userEmail() }}</p>
+    <p>{{ $message->mensaje }}</p>
 @stop

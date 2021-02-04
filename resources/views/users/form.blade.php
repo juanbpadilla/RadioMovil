@@ -53,20 +53,24 @@
         {!! $errors->first('password_confirmation', '<span class=error>:message</span>') !!}
     </label></p>    
 @endunless
-
-<div>
-    @foreach($roles as $id => $name)
-        <div class="form-check-inline">
-            <label class="form-check-label">
-                <input 
-                    type="checkbox" class="form-check-input" 
-                    value="{{ $id }}"
-                    {{ $user->roles->pluck('id')->contains($id) ? 'checked' : '' }} 
-                    name="roles[]">
-                {{ $name }}
-            </label>
-        </div>
-    @endforeach
-</div>
+@if(auth()->check())
+    @if (auth()->user()->hasRoles(['admin']))
+    <div>
+        @foreach($roles as $id => $name)
+            <div class="form-check-inline">
+                <label class="form-check-label">
+                    <input 
+                        type="checkbox" class="form-check-input" 
+                        value="{{ $id }}" {{ $user->present()->check($id) }} 
+                        name="roles[]">
+                    {{ $name }}
+                </label>
+            </div>
+        @endforeach
+    </div>
+    @endif
+@endif
 {!! $errors->first('roles', '<span class=error>:message</span>') !!}
+{!! htmlFormSnippet() !!}
+{!! $errors->first('g-recaptcha-response', '<span class=error>:message</span>') !!}
 <hr>

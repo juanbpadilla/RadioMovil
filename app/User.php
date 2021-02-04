@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Presenters\UserPresenter;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -72,5 +73,10 @@ class User extends Authenticatable
     public function note()
     {
         return $this->morphOne(Note::class, 'notable');
+    }
+
+    public function present()
+    {
+        return new UserPresenter($this);
     }
 }

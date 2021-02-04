@@ -17,3 +17,4 @@ Route::get('login', ['as' => 'login', 'uses' => 'Auth\LoginController@ShowLoginF
 Route::post('login', 'Auth\LoginController@Login');
 
 Route::get('logout', 'Auth\LoginController@logout');
+

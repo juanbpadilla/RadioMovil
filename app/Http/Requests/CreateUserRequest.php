@@ -33,6 +33,7 @@ class CreateUserRequest extends FormRequest
             'user_name' => 'required|unique:users,user_name', 
             'password' => 'required|confirmed', // 'campo' 'campo_confirmation'
             'roles' => 'required',
+            'g-recaptcha-response' => 'recaptcha',
         ];
     }
 }

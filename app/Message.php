@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Presenters\MessagePresenter;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
@@ -16,6 +17,11 @@ class Message extends Model
     public function note()
     {
         return $this->morphOne(Note::class, 'notable');
+    }
+
+    public function present()
+    {
+        return new MessagePresenter($this);
     }
 }
 
