@@ -70,4 +70,18 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    public function store(Request $request)
+    {
+        
+        Auth::login([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        return redirect(RouteServiceProvider::HOME);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\User;
 use App\Role;
+use App\Http\Controllers\Auth\RegisterController;
 
 Class Users implements UsersInterface
 {
@@ -16,6 +17,7 @@ Class Users implements UsersInterface
 
     public function store($request)
     {
+        
         $user = User::create( $request->all());
 
         $user->roles()->attach($request->roles);

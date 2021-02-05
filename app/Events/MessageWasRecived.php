@@ -12,7 +12,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 
-class MessageWasRecived
+class MessageWasRecived implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -35,6 +35,6 @@ class MessageWasRecived
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new Channel('messages-channel');
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Jobs\SendEmail;
+
 DB::listen(function($query){
     // echo "<pre>{$query->sql}</pre>";
 });

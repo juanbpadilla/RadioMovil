@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Role;
 use App\Repositories\UsersInterface;
 use App\Http\Requests\CreateUserRequest;

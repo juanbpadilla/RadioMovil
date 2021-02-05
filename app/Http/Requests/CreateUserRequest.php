@@ -24,14 +24,11 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required',
+            'nombre' => 'required|string|max:255',
             'apellido' => 'required',
-            'sexo' => 'required', 
-            'direccion' => 'required', 
             'telefono' => 'required', 
-            'email' => 'email|required|unique:users,email',
-            'user_name' => 'required|unique:users,user_name', 
-            'password' => 'required|confirmed', // 'campo' 'campo_confirmation'
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|confirmed|min:8', // 'campo' 'campo_confirmation'
             'roles' => 'required',
             'g-recaptcha-response' => 'recaptcha',
         ];
